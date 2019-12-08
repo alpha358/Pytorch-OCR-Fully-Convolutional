@@ -108,7 +108,7 @@ class Dataset(data.Dataset):
         #We are actually only getting one item here obvoiusly!
 
 
-        num_words=randint(5,6)
+        num_words=randint(3,4) # 5,6
         language="en"
         count=32
         skew_angle=0
@@ -159,7 +159,7 @@ class Dataset(data.Dataset):
 
         #What we do here is we space the words quite far appart. 
         if random.random()>0.8:
-            width_scale=random.random()*900
+            width_scale=random.random()*800#900
             space_width=width_scale/np.sum(self.strings_len)
         else:
             #width_scale=random.randint(50,100)/100
