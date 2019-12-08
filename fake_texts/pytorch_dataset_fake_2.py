@@ -158,17 +158,21 @@ class Dataset(data.Dataset):
         string_count = len(strings)
 
         #What we do here is we space the words quite far appart. 
-        if random.random()>0.8:
-            width_scale=random.random()*800#900
-            space_width=width_scale/np.sum(self.strings_len)
-        else:
-            #width_scale=random.randint(50,100)/100
-            #width_scale=1
-            #space_width=width_scale/np.sum(self.strings_len)
-            space_width=2#random.randint(50,100)/100
+        # if random.random()>0.8:
+        #     width_scale=random.random()*800#900
+        #     space_width=width_scale/np.sum(self.strings_len)
+        # else:
+        #     #width_scale=random.randint(50,100)/100
+        #     #width_scale=1
+        #     #space_width=width_scale/np.sum(self.strings_len)
+        #     space_width=2#random.randint(50,100)/100
             
-            if random.random()>0.85 and np.max(self.strings_len)<30:
-                width=random.randint(500,800)
+        #     if random.random()>0.85 and np.max(self.strings_len)<30:
+        #         width=random.randint(500,800)
+
+        
+        width = random.randint(500, 800)
+        space_width = 2
 
         image_list=[np.expand_dims(np.array(FakeTextDataGenerator.generate(*j)),0) for j in zip(
                     [i for i in range(0, string_count)],
