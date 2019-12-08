@@ -66,7 +66,7 @@ class Dataset(data.Dataset):
     def __init__(self,epoch_size=10,random_strings=True,num_words=5,transform=False,width=-1,alignment=1,height=32):
         'Initialization'
         #Still in inti
-        self.transform=True
+        self.transform = transform
         self.random_sequences=False
         self.random_strings=True
         self.include_letters=True
@@ -95,7 +95,10 @@ class Dataset(data.Dataset):
         self.fonts = load_fonts("en")
 
         self.decode_dict=dict((v,k) for k,v in self.dictionary.items())
-        self.decode_dict.update({67 : "OOK"})
+
+        self.unknown_char_idx = len(pool)#67
+
+        self.decode_dict.update({self.unknown_char_idx: "OOK"})  # unknown keyword
         self.seq = augmentations
 
     def __len__(self):
@@ -153,7 +156,7 @@ class Dataset(data.Dataset):
         strings =[" ".join(take_10(word_tokenize(x))) for x in strings]
 
         strings_=[list(x)for x in strings]
-        self.strings_int=[[self.dictionary[x.lower() ] if x.lower()  in self.keys else 67 for x in m ] for m in strings_]
+        self.strings_int=[[self.dictionary[x.lower() ] if x.lower()  in self.keys else self.unknown_char_idx for x in m ] for m in strings_]
         self.strings_len=[len(x)for x in self.strings_int]
         string_count = len(strings)
 
