@@ -70,25 +70,27 @@ def create_strings_from_wikipedia(minimum_length, count, lang):
 
     return sentences[0:count]
 
-def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
+# def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
+
+def create_strings_randomly(length, allow_variable, count, pool, lang='en'):
     """
         Create all strings by randomly sampling from a pool of characters.
     """
 
-    # If none specified, use all three
-    if True not in (let, num, sym):
-        let, num, sym = True, True, True
+    # # If none specified, use all three
+    # if True not in (let, num, sym):
+    #     let, num, sym = True, True, True
 
-    pool = ''
-    if let:
-        if lang == 'cn':
-            pool += ''.join([chr(i) for i in range(19968, 40908)]) # Unicode range of CHK characters
-        else:
-            pool += string.ascii_letters
-    if num:
-        pool += "0123456789"
-    if sym:
-        pool += "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~"
+    # pool = ''
+    # if let:
+    #     if lang == 'cn':
+    #         pool += ''.join([chr(i) for i in range(19968, 40908)]) # Unicode range of CHK characters
+    #     else:
+    #         pool += string.ascii_letters
+    # if num:
+    #     pool += "0123456789"
+    # if sym:
+    #     pool += "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~"
 
     if lang == 'cn':
         min_seq_len = 1

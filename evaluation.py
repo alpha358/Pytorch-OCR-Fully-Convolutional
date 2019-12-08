@@ -4,6 +4,19 @@ import matplotlib.pyplot as plt
 
     
 def wer(r, h):
+    '''
+    Word error rate computation
+
+    https://en.wikipedia.org/wiki/Word_error_rate ?
+    
+    sequences of integers []
+    r --- prediction
+    h --- ground truth
+
+    TODO: check for correctness 
+    TODO: consider adding assertions
+
+    '''
     d = np.zeros((len(r)+1)*(len(h)+1), dtype=np.uint8)
     d = d.reshape((len(r)+1, len(h)+1))
     for i in range(len(r)+1):
@@ -27,16 +40,26 @@ def wer(r, h):
     return d[len(r)][len(h)]
 
 def preds_to_integer(preds):
+    '''
+    preds --- (log?) probabilities [sequence_idx, letter_idx]
+    '''
     preds=torch.argmax(preds,dim=1).detach().cpu().numpy()
     preds=preds.tolist()
 
     out=[]
     for i in range(len(preds)):
+        '''
+        if char is not eps
+        anf if char is not the same as previous one
+        '''
         if preds[i] != 0 and preds[i] != preds[i - 1]:
             out.append(preds[i])
     return out 
 
 def wer_eval(preds,labels):
+    '''
+    word(?) error evaluation
+    '''
     preds=preds_to_integer(preds)
     we=wer(preds,labels)
 

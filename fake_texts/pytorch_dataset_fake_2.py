@@ -88,6 +88,7 @@ class Dataset(data.Dataset):
         pool += ".-"
         # pool += "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~"
         pool += ' '
+        self.pool = pool
         self.keys = list(pool)
         self.values = np.array(range(1,len(pool)+1))
         self.dictionary = dict(zip(self.keys, self.values))
@@ -137,8 +138,17 @@ class Dataset(data.Dataset):
         #try: 
         #    strings = create_strings_from_wikipedia(1, 1, "en")
         #except:
-        strings = create_strings_randomly(num_words, False, 1,
-                          True, True,True, "en")
+
+        
+        strings = create_strings_randomly(length=num_words,
+                                          allow_variable=False,
+                                         count=1, 
+                                         pool=self.pool, 
+                                         lang='en')
+
+        # def create_strings_randomly(length, allow_variable, count, let, num, sym, lang):
+        # strings = create_strings_randomly(num_words, False, 1,
+        #                   True, True,True, "en")
 
         strings =[" ".join(take_10(word_tokenize(x))) for x in strings]
 
