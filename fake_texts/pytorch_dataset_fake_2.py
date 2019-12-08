@@ -83,9 +83,10 @@ class Dataset(data.Dataset):
         self.name_format=0
 
         pool = ''
-        pool += "abcdefghijklmnopqrstuvwxyz"
+        # pool += "abcdefghijklmnopqrstuvwxyz"
         pool += "0123456789"
-        pool += "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~"
+        pool += ".-"
+        # pool += "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~"
         pool += ' '
         self.keys = list(pool)
         self.values = np.array(range(1,len(pool)+1))

@@ -39,6 +39,11 @@ def preds_to_integer(preds):
 def wer_eval(preds,labels):
     preds=preds_to_integer(preds)
     we=wer(preds,labels)
+
+    N = len(preds)
+    if N==0:
+        return 0
+
     return we/len(preds)
 
 def show(img):
