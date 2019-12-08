@@ -176,9 +176,9 @@ def train_single_epoch(model, gen, optimizer, start_time, curr_best_cer):
             gc.collect()
             # -------------------------------------------------------
 
-            plot_loss(LOSS, ERROR_RATE)
+            # plot_loss(LOSS, ERROR_RATE)
 
-            if n_iter % 5:
+            if n_iter % 10:
                 print('loss: ', LOSS[-1], 'CER: ',ERROR_RATE[-1])
 
     return np.mean(loss), np.mean(ERROR_RATE)
