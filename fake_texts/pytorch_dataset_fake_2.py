@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import imgaug as ia
 from imgaug import augmenters as iaa
 from imgaug_transformations import augmentations
-from skimage.transform import resize
+# from skimage.transform import resize
 import cv2
 
 
