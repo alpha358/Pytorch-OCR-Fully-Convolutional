@@ -17,7 +17,26 @@ class FakeTextDataGenerator(object):
         cls.generate(*t)
 
     @classmethod
-    def generate(cls, index, text, font, size, extension, skewing_angle, random_skew, blur, random_blur, background_type, distorsion_type, distorsion_orientation, is_handwritten, name_format, width, alignment, text_color, orientation, space_width):
+    def generate(cls,
+                 index,
+                 text,
+                 font,
+                 size,
+                 extension,
+                 skewing_angle,
+                 random_skew,
+                 blur,
+                 random_blur,
+                 background_type,
+                 distorsion_type,
+                 distorsion_orientation,
+                 is_handwritten,
+                 name_format,
+                 width,
+                 alignment,
+                 text_color,
+                 orientation,
+                 space_width):
         image = None
 
         ##########################
