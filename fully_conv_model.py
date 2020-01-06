@@ -168,7 +168,7 @@ class cnn_attention_ocr(nn.Module):
             
         x=self.drop2(x)
         x=self.reduce2(x)
-        x=torch.mean(x,dim=2)
+        x=torch.mean(x,dim=2) # average pool the height dimension?
         #x=LayerNorm((self.classes,input_width)).cuda()(x)
         x=self.ln_3(x.permute((0,2,1))).permute((0,2,1))
         x=nn.LogSoftmax(dim=1)(x)

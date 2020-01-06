@@ -39,12 +39,19 @@ def wer(r, h):
 
     return d[len(r)][len(h)]
 
-def preds_to_integer(preds):
+def preds_to_integer(Preds, p_tresh):
+    '''`
+    Preds --- (log?) probabilities [T, C]  (after batch element selection)
     '''
-    preds --- (log?) probabilities [sequence_idx, letter_idx]
-    '''
-    preds=torch.argmax(preds,dim=1).detach().cpu().numpy()
+    preds=torch.argmax(Preds,dim=1).detach().cpu().numpy()
+    
+    # take maximally likely characters
+    probs=np.exp(
+        np.max(Preds.detach().cpu().numpy(), axis=1)
+        )
+
     preds=preds.tolist()
+    
 
     out=[]
     for i in range(len(preds)):
@@ -53,7 +60,9 @@ def preds_to_integer(preds):
         anf if char is not the same as previous one
         '''
         if preds[i] != 0 and preds[i] != preds[i - 1]:
-            out.append(preds[i])
+            if probs[i] > p_tresh: # if the character is likely enough
+                out.append(preds[i])
+
     return out 
 
 def wer_eval(preds,labels):
@@ -109,6 +118,11 @@ class AverageMeter(object):
         return self.avg
     
 def my_collate(batch):
+    '''
+    After fetching a list of samples using the indices from sampler,
+    the function passed as the collate_fn argument is used to collate lists of samples into batches.
+    '''
+    
     #some shapes 
     one,height,wi,channels=batch[0][0].shape
     #batch size

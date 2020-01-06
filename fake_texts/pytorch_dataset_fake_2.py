@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import imgaug as ia
 from imgaug import augmenters as iaa
 from imgaug_transformations import augmentations
-from skimage.transform import resize
+# from skimage.transform import resize
 import cv2
 
 
@@ -63,24 +63,36 @@ from torch.utils import data
 
 class Dataset(data.Dataset):
     'Characterizes a dataset for PyTorch'
-    def __init__(self,epoch_size=10,random_strings=True,num_words=5,transform=False,width=-1,alignment=1,height=32):
+    def __init__(self,
+                    epoch_size=10,
+                    random_strings=True,
+                    num_words=5,
+                    transform=False,
+                    width=-1,
+                    alignment=1,
+                    height=32,
+                    random_skew = True,
+                    random_blur = True,
+                ):
         'Initialization'
         #Still in inti
         self.transform = transform
-        self.random_sequences=False
-        self.random_strings=True
-        self.include_letters=True
-        self.include_numbers=True
-        self.include_symbols=True
-        self.length=10
-        #self.random=False
-        self.format=32
-        self.use_wikipedia=False
-        self.text_color='#282828'
-        self.orientation=0
-        self.extension="jpg"
-        self.handwritten=False
-        self.name_format=0
+        self.random_sequences = False
+        self.random_strings = True
+        self.include_letters = True
+        self.include_numbers = True
+        self.include_symbols = True
+        self.length = 10
+        #self.random = False
+        self.format = 32
+        self.use_wikipedia = False
+        self.text_color = '#282828'
+        self.orientation = 0
+        self.extension = "jpg"
+        self.handwritten = False
+        self.name_format = 0
+        self.random_skew = random_skew
+        self.random_blur = random_blur
 
         pool = ''
         # pool += "abcdefghijklmnopqrstuvwxyz"
@@ -115,9 +127,9 @@ class Dataset(data.Dataset):
         language="en"
         count=32
         skew_angle=0
-        random_skew=True
+        random_skew=self.random_skew
         blur=0
-        random_blur=True
+        random_blur=self.random_blur
         background=randint(0,1)
         distorsion=randint(0,2)
         distorsion_orientation=randint(0,2)
@@ -174,7 +186,7 @@ class Dataset(data.Dataset):
         #         width=random.randint(500,800)
 
         
-        width = random.randint(500, 800)
+        width = random.randint(500, 700)
         space_width = 2
 
         image_list=[np.expand_dims(np.array(FakeTextDataGenerator.generate(*j)),0) for j in zip(
@@ -199,19 +211,19 @@ class Dataset(data.Dataset):
                     [space_width] * string_count )]
         
         
-        X=image_list[0]
-        y=self.strings_int[0]
+        X = image_list[0]
+        y = self.strings_int[0]
         
-        y_len=len(y)
+        y_len = len(y)
         
         #Here we include some random horizontal lines cause they appear quite often in real life. 
         if random.random()>0.8:
             for j in range(random.randint(0,3)):
 
-                random_channel=random.randint(0,2)
-                random_h=random.randint(0,31)
-                random_w_s=random.randint(0,int(X.shape[2]/2))
-                random_w_e=random.randint(int(X.shape[2]/2),int(X.shape[2]))
+                random_channel = random.randint(0,2)
+                random_h = random.randint(0,31)
+                random_w_s = random.randint(0,int(X.shape[2]/2))
+                random_w_e = random.randint(int(X.shape[2]/2),int(X.shape[2]))
             
                 
                 X[0,random_h,random_w_s:random_w_e,random_channel]=random.randint(0,255)
