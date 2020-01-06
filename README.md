@@ -1,3 +1,7 @@
+
+
+---
+
 # Pytorch-OCR-Fully-Convolutional
 
 This repository is a work in progress implementation of: 
