@@ -18,7 +18,7 @@ def wer(r, h):
 
     '''
     d = np.zeros((len(r)+1)*(len(h)+1), dtype=np.uint8)
-    d = d.reshape((len(r)+1, len(h)+1))
+    d = d.reshape((len(r)+1, len(h)+1)) # why not create coorect dims at start?
     for i in range(len(r)+1):
         for j in range(len(h)+1):
             if i == 0:
