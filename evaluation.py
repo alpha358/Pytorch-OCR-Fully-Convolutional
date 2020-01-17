@@ -43,7 +43,7 @@ def preds_to_integer(Preds, p_tresh):
     '''`
     Preds --- (log?) probabilities [T, C]  (after batch element selection)
     '''
-    preds=torch.argmax(Preds,dim=1).detach().cpu().numpy()
+    preds = torch.argmax(Preds,dim=1).detach().cpu().numpy()
     
     # take maximally likely characters
     probs=np.exp(
